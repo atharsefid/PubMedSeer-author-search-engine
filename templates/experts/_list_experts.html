@@ -1,0 +1,18 @@
+<div class="sec">
+  <div class="secheader"> <strong>>></strong> List of experts</div> 
+
+  <ol>
+  {% for expert in experts %}
+    <div class='item'>
+      <li>
+        <span class='name'><a href="author?cid={{ expert.1 }}&q_term={{ q }}"><strong><em>{{ expert.0 }}</em></strong></a></span><br>
+        <div class='detail'>
+        {% if expert.2 != None %}
+          {{expert.2}}
+        {% endif %}
+        </div>
+      </li>
+    </div>
+  {% endfor %}
+  </ol>
+</div>

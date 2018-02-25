@@ -1,0 +1,36 @@
+{% include "standard.html" %}
+
+{% block rel_keyphrases %}
+  <div id="related_query">
+    {% include "rel_keyphrases/_expansion_cloud.html" %}
+   </div>
+{% endblock %}
+
+<div class="sec">
+ <div class="secheader"> <strong>>></strong> Exclude List for {{ user.username }} </div>
+ <form action="/experts/pelist" method="post">
+   <textarea id="excludelist" name="elist" readonly rows="4" cols="50"></textarea> 
+   <input type="hidden" name="q" value= "{{ q }}">
+   <input type="submit" value="Submit">
+ </form>
+</div>
+
+{% block item_list %}
+  <div id="experts">
+    {% include "experts/_list_experts.html" %}
+  </div>
+{% endblock %}
+
+<script>
+$('#related_query').mousedown(function(event) {
+	if ((event.which == 3)&& (event.target.nodeName == 'SPAN')){
+ 	     event.preventDefault();
+	     $("#excludelist").append($(event.target).text().concat(" , "));
+	}
+});
+document.getElementById('related_query').oncontextmenu=new Function ("return false");
+
+
+</script>
+
+

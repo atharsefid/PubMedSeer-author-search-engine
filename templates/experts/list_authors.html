@@ -1,0 +1,15 @@
+{% include "standard.html" %}
+{% block item_list %}
+  <div class="experts">
+    <ul>
+      {% for author in matched_authors %}
+        <div class='item'>
+          <li>
+            <span class='name'><a href="author?cid={{ author.1 }}"><strong><em>{{ author.0|safe }}</em></strong></a></span><br>
+          </li>
+        </div>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+

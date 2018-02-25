@@ -1,0 +1,144 @@
+{% include "standard.html" %}
+
+<div class="viewDoc" id="viewHeader">
+    {% autoescape off %}
+    <div  id="datacontents" class="header" >
+        <h3 style="display: inline;" >{{d.name}}</h3>
+        <span style="float:right;">
+            <form   method="post" action="/export_papers" style="display: inline;"  align="right" >
+            {% csrf_token %}
+              <input type="hidden"  name="cid" value={{d.cid}}>
+              <input type="hidden"  name="hq" value={{d.hq}}>
+              <input style="font-weight:bold;font-size:10pt; color:purple;background-color:white; " type="submit" value="Export Papers">
+            </form>
+            <form   method="post" action="/export_author_info" style="display: inline;"  align="right">
+            {% csrf_token %}
+              <input type="hidden"  name="cid" value={{d.cid}}>
+              <input type="hidden"  name="hq" value={{d.hq}}>
+              <input style="font-weight:bold;font-size:10pt; color:purple;background-color:white; " type="submit" value="Export Author Information">
+            </form>
+        </span>
+    </div>
+    {% if d.varnames|length > 0 %}
+    <div id="varnames">
+        <b>Name Formats:</b>&emsp;{{d.varnames}}
+    </div>
+    {% endif %}
+    <div id="viewContent">
+        <div id="viewContent">
+            <div id="affiliations">
+            {% if d.affils|length > 0 %}
+            <h3>Affiliations</h3>
+            <p> {{d.affils}} </p>
+            {% endif %}
+            </div>
+            <br>
+
+            <div>
+            <h3>Publications</h3>
+            <div id="shortpublications">
+                <p>
+                    {% for paper in d.ten_papers %} 
+                        <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={{paper.pmid}}">{{paper.info}}</a><br>
+                    {% endfor %}
+                    <br>
+                    {% if d.papers|length > 10 %}
+                    <a id='showmore'><strong><font color="purple">Show more ...</font></strong> </a>
+                    {% endif %}
+                </p>
+            </div>
+            <div id="publications" style="display:none">
+                <p>
+                    {% for paper in d.papers %} 
+                        <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={{paper.pmid}}">{{paper.info}}</a><br>
+                    {% endfor %}
+                    <br>
+                    <a id='showless'><strong><font color="purple">Show less</font></strong> </a>
+                </p>
+            </div>
+            
+            </div>
+            <br>
+            <h3>MeSH Terms</h3>
+            <div id="ten_meshes">
+                <p> {{d.ten_meshes}} 
+                <br> <br> 
+                {% if d.meshes|length > d.ten_meshes|length %}
+                    <a id='showmore_meshes'><strong><font color="purple">Show more ...</font></strong></a>
+                {% endif %}
+                </p>
+            </div>
+            <div id="meshes" style="display:none">
+                <p> {{d.meshes}}
+                <br> <br> 
+                <a id='showless_meshes'><strong><font color="purple">Show less</font> </strong></a>
+                </p>
+            </div>
+            <br>
+            <h3>Coauthors</h3>
+            <div id="ten_coauthors">
+                <p>
+                    {% for coauthor in d.ten_coauthors %}
+                        <a href="?id={{coauthor.id}}">{{coauthor.name}}({{coauthor.count}})</a>&emsp;
+                    {% endfor %}
+                    <br> <br>  
+                    {% if d.coauthors|length > 10 %}
+                    <a id='showmore_coauthors'><strong><font color="purple">Show more ...</font></strong> </a>
+                    {% endif %}
+                </p>
+            </div>
+            <div id="coauthors" style="display:none">
+                <p>
+                    {% for coauthor in d.coauthors %}
+                        <a href="?id={{coauthor.id}}">{{coauthor.name}}({{coauthor.count}})</a>&emsp;
+                    {% endfor %}
+                    <br> <br> 
+                    <a  id='showless_coauthors'><strong><font color="purple">Show less</font></strong> </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endautoescape%}
+
+</div>
+
+
+<script>
+
+$(document).ready(function() {
+    
+    $('#showmore').click(function() {
+         $('#publications').show();
+         $('#shortpublications').hide();
+    });
+
+    $('#showless').click(function() {
+         $('#publications').hide();
+         $('#shortpublications').show();
+    });
+    $('#showmore_coauthors').click(function() {
+         $('#coauthors').show();
+         $('#ten_coauthors').hide();
+    });
+
+    $('#showless_coauthors').click(function() {
+         $('#coauthors').hide();
+         $('#ten_coauthors').show();
+    });
+    $('#showmore_meshes').click(function() {
+         $('#meshes').show();
+         $('#ten_meshes').hide();
+    });
+
+    $('#showless_meshes').click(function() {
+         $('#meshes').hide();
+         $('#ten_meshes').show();
+    });
+});
+
+
+</script>
+
+
+</body>
+</html>

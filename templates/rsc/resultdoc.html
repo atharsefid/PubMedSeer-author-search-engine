@@ -1,0 +1,49 @@
+{% include "standard.html" %}
+
+<div id="result_info">
+	Results
+	<strong>{{i}} - {{j}} </strong>
+	of
+	<strong>{{total}}</strong>
+	<div id="pager">
+	<a href="/?q={{q}}&type={{searchType}}&start={{j}}">Next 10 →</a>
+	</div>
+</div>
+
+<div align="center"  id ="export_results" style="padding-top: 2px;padding-bottom: 2px;">
+    <form   method="post" action="/export_results" style="display: inline;" align="center">
+    {% csrf_token %}
+      <input type="hidden"  name="query" value={{q}}>
+      <input style="font-weight:bold;font-size:10pt; color:purple;background-color:white; " type="submit" value="Export Results">
+    </form>
+    <form   method="post" action="/export_results_papers" style="display: inline;" align="center">
+    {% csrf_token %}
+      <input type="hidden"  name="query" value={{q}}>
+      <input style="font-weight:bold;font-size:10pt; color:purple;background-color:white; " type="submit" value="Export Papers">
+    </form>
+</div>
+<div id="result_list" style="padding-top: 0px;">
+
+{%for hit in results %}
+{% autoescape off %}
+	<div class="result">
+        <div class = "name">
+        <h3>
+		<a href="viewdocument/?id={{hit.cid}}&hq={{q}}">{{hit.name}}</a>
+        </h3>
+        </div>
+        
+        <div class="info">
+            <small><b>Name Formats:&emsp;</b>{{hit.varnames}}</small><br>
+            <small><b>Affiliations:&emsp;</b>{{hit.affils}}</small>
+        {% if hit.varnames|length > 0 %}
+        {%endif%}
+        {% if hit.affils|length > 0 %}
+        {%endif%}  
+        </div>
+    </div>
+{% endautoescape%}
+{% endfor%}
+</div>
+</body>
+</html>

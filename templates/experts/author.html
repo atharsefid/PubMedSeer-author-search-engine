@@ -1,0 +1,42 @@
+{% include "standard.html" %}
+
+{% block rel_keyphrases %}
+  <div class="info_box">
+    {% include "experts/_author_info.html" %}
+  </div>
+  <div id="related_query">
+    {% include "experts/_expansion_cloud.html" %}
+  </div>
+{% endblock %}
+
+<div class="sec">
+ <div class="secheader"> <strong>>></strong> Exclude List for {{ user.username }} </div>
+ <form action="/experts/aelist" method="post">
+   <textarea id="excludelist" name="elist" readonly rows="4" cols="50"></textarea> 
+   <input type="hidden" name="cluster_id" value= "{{ cluster_id }}">
+   <input type="submit" value="Submit">
+ </form>
+</div>
+
+
+{% block item_list %}
+  <div id="experts">
+    {% include "experts/_list_papers.html" %}
+  </div>
+{% endblock %}
+
+
+<script>
+$('#related_query').mousedown(function(event) {
+	if ((event.which == 3)&& (event.target.nodeName == 'SPAN')){
+ 	     event.preventDefault();
+	     $("#excludelist").append($(event.target).text().concat(" , "));
+	}
+});
+document.getElementById('related_query').oncontextmenu=new Function ("return false");
+
+
+</script>
+
+
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "rsc/chem.css" %}" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<title>
+PubmedSeer
+</title>
+
+<script>
+$(document).ready(function () {
+    
+    $("li > a").click(function () {
+      $(".current").removeClass("current");
+      $(this).addClass("current");
+      $("#q_type").val( $(this).attr('val'));
+      //alert($(this).text());
+    });
+});
+
+</script>
+<style type="text/css">
+body{
+font-family:Arial, Helvetica, sans-serif;
+
+}
+*{margin:0;padding:0;}
+
+
+	
+	#searchword
+	{
+	text-align:left; margin-top:20px; display:none;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:#000;
+	}
+	.searchword
+	{
+	font-weight:bold;
+	color:#000000;
+	
+	}
+	#search_box
+	{
+	padding:4px; border:solid 1px #666666; width:300px; height:30px; font-size:18px; margin:0px;
+    }
+	.search_button
+	{
+	background-color: #5DADE2;border:#FFFFFF solid 1px; padding:7px; color:#FFF; font-weight:bold; font-size:14px;
+	}
+	
+
+</style>
+
+<body>
+<div align="center">
+
+<div style="position: absolute; top: 20%; left: 25%; width: 50%; height: 50%;">
+{% load staticfiles %}
+<div>  <img src="{% static "rsc/pubmed.jpg" %}" alt="quimage"/> </div>
+
+<div style="padding-top:10px">
+<span style="color:#666666; font-size:18px; font-family:Arial, Helvetica, sans-serif;"><b>PubmedSeer:</b> Disambiguated Author Search Engine for Pubmed </span>
+</div>
+<div style="padding-top:25px">
+<form method="get" action="../">
+<input type="text" name="q" id="search_box" class='search_box'/>
+<input type="hidden" name="type" id="q_type" value="Docs"/>
+<input type="submit" value="Search" class="search_button" /><br />
+<a href="./transfer_to_advance.html" title="Search full text, title, abstract, date, author name, author affiliation, etc.">Advanced Search</a>
+<a href="./record_search.html" title="Search with record">Record Search</a>
+</form>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

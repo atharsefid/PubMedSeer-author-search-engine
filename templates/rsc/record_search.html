@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "rsc/chem.css" %}" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<title>
+PubmedSeer
+</title>
+
+<script>
+$(document).ready(function () {
+
+    $("li > a").click(function () {
+      $(".current").removeClass("current");
+      $(this).addClass("current");
+      $("#q_type").val( $(this).attr('val'));
+      //alert($(this).text());
+    });
+});
+
+</script>
+<style type="text/css">
+body{
+font-family:Arial, Helvetica, sans-serif;
+}
+*{margin:0;padding:0;}
+
+
+
+	#searchword
+	{
+	text-align:left; margin-top:20px; display:none;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:#000;
+	}
+	.searchword
+	{
+	font-weight:bold;
+	color:#000000;
+
+	}
+	#search_box
+	{
+	padding:4px; border:solid 1px #666666; width:300px; height:30px; font-size:18px; margin:0px;
+    }
+	.search_button
+	{
+	background-color: #5DADE2;border:#FFFFFF solid 1px; padding:7px; color:#FFF; font-weight:bold; font-size:14px;
+	}
+
+
+</style>
+<body>
+
+<div align="center">
+
+<div style="position: absolute; top: 20%; left: 10%; width: 80%; height: 50%;">
+{% load staticfiles %}
+<div>  <img src="{% static "rsc/pubmed.jpg" %}" alt="quimage"/> </div>
+<div style="padding-top:10px">
+<span style="color:#666666; font-size:18px; font-family:Arial, Helvetica, sans-serif;"><b>PubmedSeer:</b> Disambiguated Author Search Engine for Pubmed </span>
+</div>
+<div style="padding-top:25px">
+<div id="content" > <!--style="border:1px solid #000;">-->
+  <h2>Record-based Search</h2>
+
+
+  <div id="recordSearch">
+  <div class="help"><p>Upload bibtex / pdf file you want to query.</p></div>
+  <form enctype="multipart/form-data" method="post" action="/record_search">
+    {% csrf_token %}
+<!--
+    <p>{{form.non_field_errors }}</p>
+    <p>{{form.docfile.label_tag}} {{ form.docfile.help_text }}</p>
+    <p>
+       {{form.docfile.errors}}
+       {{form.docfile }}
+    </p>
+-->
+    <input type="file" name="docfile">
+    <!--button type="submit">Upload</button-->
+    Author order:<input name='ord' value='' type='text' class='textField' size='5'>
+    <input type="submit" class="button" value="upload" />
+  </form>
+  </div>
+
+</div>
+</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><!--This page is automatically generated.  Do not edit!-->
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "rsc/chem.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "rsc/result.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "rsc/reset.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "chemseer/css/expert.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "rsc/view.css" %}" />
+<link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/termcloud/tc.css"/>
+<script type="text/javascript">
+<!--
+function queryfocus() {
+  search = document.search;
+  if (search != null) { search.query.focus(); }
+
+}
+// --></script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+{% load staticfiles %}
+<script src="{% static "rsc/jquery.expander.js" %}"></script>
+<script src="{% static "rsc/tc-mod.js" %}"></script>
+
+
+<style type="text/css">
+body{
+font-family:Arial, Helvetica, sans-serif;
+
+}
+*{margin:0;padding:0;}
+	
+	#searchword
+	{
+	text-align:left; margin-top:20px; display:none;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:#000;
+	}
+	.searchword
+	{
+	font-weight:bold;
+	color:#000000;
+	
+	}
+	#search_box
+	{
+	padding:4px; border:solid 1px #666666; width:300px; height:30px; font-size:18px;
+	}
+	.search_button
+	{
+	 background-color: #5DADE2;border:#FFFFFF; solid 1px; padding:11px; color:#FFF; font-size:16px;font-weight:bold;
+	}
+	
+
+</style>
+
+
+</head>
+
+<body onLoad="queryfocus();">
+
+	<div id='container' style="width: 960px; margin:0pt auto">
+	<div id="search_container" style=" top: 7%; left: 2%; width: 90%; height: 10%;;padding-top:20px">
+
+<div style="float:left; padding-right:10px;">
+{% load staticfiles %}
+<a  title="PubmedSeer" href="/">
+<img id=logo src="{% static "rsc/pubmed_logo.png" %}" alt="wos logo image"/>
+</a>
+</div>
+
+
+<form id="searchform" method="get" action="../" style="padding-bottom:10px; border-bottom: 1px solid #bbb;">
+    <input type="text" name="q" id="search_box" class='search_box' value ="{{ q }}"/>
+	<input type="submit" value="Search" class="search_button" /> 
+    <input type="hidden" name="type" id="q_type" value="Docs"/>
+    <a href="./transfer_to_advance.html" title="Search full text, title, abstract, date, author name, author affiliation, etc.">Advanced Search</a>
+    <a href="./record_search.html" title="search with record">Record Search</a>
+<br>
+</form>
+
+<script type="text/javascript">
+
+
+$(document).ready(function () {
+    //alert("load");
+    $("li > a").click(function () {
+       $("#q_type").val( $(this).text() );
+       $("#q_type")='Docs'
+       $("#searchform").submit();
+       });
+});
+</script>

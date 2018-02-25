@@ -1,0 +1,17 @@
+{% include "standard.html" %}
+
+<h3>Chemxseer Online Taggers </h3><br>
+
+<div>
+<form method="POST" enctype="multipart/form-data" action="/taggers/">
+Please choose a PDF file for which you would like to extract formulas or chemical names <input type="file" name="myfile" />
+<br/>
+Entities to tag: 
+<input type="radio" name="entitytype" value="formula" checked > Chemical Formula
+<input type="radio" name="entitytype" value="name" > Chemical Names <br> 
+<input type="submit" />
+</form>
+</div>
+<b>Tagger Results</b>
+<p>{{taggeddoc|safe}} </p>
+</body></html>

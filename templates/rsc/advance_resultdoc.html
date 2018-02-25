@@ -1,0 +1,75 @@
+{% include "standard.html" %}
+
+<div id="result_info">
+	Results
+	<strong>{{i}} - {{j}} </strong>
+	of
+	<strong>{{total}}</strong> 
+	<div id="pager">
+    <!--<a href="/advanced_search?title={{title}}&author={{author}}&coauthor={{coauthor}}& affil={{affil}}&venue={{venue}}&keyword={{keyword}}&type={{searchType}}&start={{j}}">Next 10 →</a>-->
+    
+    <form   method="post" action="/advanced_search">
+    {% csrf_token %}
+      <input type="hidden"  name="title" value={{title}}>
+      <input type="hidden"  name="author" value={{author}}>
+      <input type="hidden"  name="coauthor" value={{coauthor}}>
+      <input type="hidden"  name="affil" value={{affil}}>
+      <input type="hidden"  name="venue" value={{venue}}>
+      <input type="hidden"  name="keyword" value={{keyword}}>
+      <input type="hidden"  name="start" value={{j}}>
+      <input  type="submit" value="Next 10 →">
+    </form>
+	
+
+    </div>
+</div>
+
+<div align="center"  id ="export_results" style="padding-top: 2px;padding-bottom: 2px;">
+    <form   method="post" action="/advance_export_results" style="display: inline;" align="center">
+    {% csrf_token %}
+      <input type="hidden"  name="title" value={{title}}>
+      <input type="hidden"  name="author" value={{author}}>
+      <input type="hidden"  name="coauthor" value={{coauthor}}>
+      <input type="hidden"  name="affil" value={{affil}}>
+      <input type="hidden"  name="venue" value={{venue}}>
+      <input type="hidden"  name="keyword" value={{keyword}}>
+      <input type="hidden"  name="start" value={{j}}>
+      <input style="font-weight:bold;font-size:10pt; color:purple;background-color:white; " type="submit" value="Export Results">
+    </form>
+    <form   method="post" action="/advance_export_results_papers" style="display: inline;" align="center">
+    {% csrf_token %}
+      <input type="hidden"  name="title" value={{title}}>
+      <input type="hidden"  name="author" value={{author}}>
+      <input type="hidden"  name="coauthor" value={{coauthor}}>
+      <input type="hidden"  name="affil" value={{affil}}>
+      <input type="hidden"  name="venue" value={{venue}}>
+      <input type="hidden"  name="keyword" value={{keyword}}>
+      <input type="hidden"  name="start" value={{j}}>
+      <input style="font-weight:bold;font-size:10pt; color:purple;background-color:white; " type="submit" value="Export Papers">
+    </form>
+</div>
+<div id="result_list" style="padding-top: 0px;">
+
+{%for hit in results %}
+{% autoescape off %}
+	<div class="result">
+        <div class = "name">
+        <h3>
+		<a href="viewdocument/?id={{hit.cid}}">{{hit.name}}</a>
+        </h3>
+        </div>
+        
+        <div class="info">
+            <small><b>Name Formats:&emsp;</b>{{hit.varnames}}</small><br>
+            <small><b>Affiliations:&emsp;</b>{{hit.affils}}</small>
+        {% if hit.varnames|length > 0 %}
+        {%endif%}
+        {% if hit.affils|length > 0 %}
+        {%endif%}  
+        </div>
+    </div>
+{% endautoescape%}
+{% endfor%}
+</div>
+</body>
+</html>
